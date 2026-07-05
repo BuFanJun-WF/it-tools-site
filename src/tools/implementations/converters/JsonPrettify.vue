@@ -67,12 +67,6 @@ const output = computed(() => {
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .check {
   display: inline-flex;
   align-items: center;

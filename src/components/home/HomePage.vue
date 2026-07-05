@@ -1,25 +1,28 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
-import { catalog, CATEGORIES, toolsByCategory } from '@/data/catalog'
+import { useRoute, useRouter } from 'vue-router'
+import { catalog, CATEGORIES, toolsByCategory, toolsFromIds } from '@/data/catalog'
 import { categoryMeta } from '@/data/icons'
 import { useUiStore } from '@/stores/ui'
 import { useFavoriteTools } from '@/composables/useFavoriteTools'
+import { useRecentTools } from '@/composables/useRecentTools'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import ToolCard from './ToolCard.vue'
 
 const { t, locale } = useI18n()
+const route = useRoute()
 const router = useRouter()
 const ui = useUiStore()
 const { favTools } = useFavoriteTools()
+const { recentTools } = useRecentTools()
 
 const localeToolWord = computed(() => (locale.value.startsWith('zh') ? '个工具' : 'tools'))
 
 // Hero stats
 const stats = computed(() => [
-  { num: String(catalog.filter(t => t.implemented).length), accent: '.', lbl: t('home.hero.stats.tools') },
+  { num: String(catalog.filter(t => t.implemented).length), accent: '+', lbl: t('home.hero.stats.tools') },
   { num: String(CATEGORIES.length), accent: '', lbl: t('home.hero.stats.categories') },
   { num: '0', accent: 'kb', lbl: t('home.hero.stats.zeroKb') },
   { num: '100', accent: '%', lbl: t('home.hero.stats.inBrowser') },
@@ -50,15 +53,31 @@ const FEATURED_IDS = [
   'date-time-converter',
 ]
 const featured = computed(() =>
-  FEATURED_IDS
-    .map(id => catalog.find(t => t.id === id))
-    .filter((t): t is NonNullable<typeof t> => Boolean(t) && Boolean(t!.implemented)),
+  toolsFromIds(FEATURED_IDS).filter(t => t.implemented),
 )
+
+// Quick-access chips in the hero — high-frequency tools. Single source of
+// truth: the `hot` flag on each catalog entry (shared with the card badge).
+const quickTools = computed(() => catalog.filter(t => t.hot && t.implemented))
+
+// Brand-strip keywords, decoupled from the template markup.
+const BRAND_KEYWORDS = ['json', 'base64', 'regex', 'hash', 'uuid', 'jwt', 'cron', 'qr', 'ipv4', 'emoji']
 
 // Category showcase cards
 const categoryCards = computed(() =>
   CATEGORIES.map(c => ({ cat: c, count: toolsByCategory(c).length })),
 )
+
+// Submitting the hero search routes to the hall with the query applied. The
+// input itself binds `ui.search` directly, so submitting only navigates.
+function searchHall() {
+  ui.setActiveCategory('All')
+  if (route.path !== '/hall') router.push('/hall')
+}
+
+function goTool(path: string) {
+  router.push(path)
+}
 
 function goHall(cat?: string) {
   if (cat) ui.setActiveCategory(cat)
@@ -97,11 +116,64 @@ function goFeedback() {
         </BaseButton>
       </div>
 
+      <div class="hero-search">
+        <span class="ic-search"><AppIcon name="search" :size="18" /></span>
+        <input
+          type="search"
+          :value="ui.search"
+          :placeholder="t('home.hero.searchPlaceholder')"
+          autocomplete="off"
+          spellcheck="false"
+          @input="ui.setSearch(($event.target as HTMLInputElement).value)"
+          @keydown.enter.prevent="searchHall"
+        />
+        <button class="hero-search-btn" :aria-label="t('home.hero.cta.hall')" @click="searchHall">
+          <AppIcon name="arrowRight" :size="16" />
+        </button>
+      </div>
+
+      <div v-if="quickTools.length" class="quick-row">
+        <span class="quick-label">{{ t('home.hero.quickAccess') }}</span>
+        <div class="quick-chips">
+          <button
+            v-for="tool in quickTools"
+            :key="tool.id"
+            class="quick-chip"
+            @click="goTool(tool.path)"
+          >
+            <AppIcon :name="tool.icon" :size="14" />
+            <span>{{ t(tool.nameKey) }}</span>
+          </button>
+        </div>
+      </div>
+
       <div class="hero-stats">
         <div v-for="s in stats" :key="s.lbl" class="hero-stat">
           <div class="num">{{ s.num }}<span class="accent">{{ s.accent }}</span></div>
           <div class="lbl">{{ s.lbl }}</div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============== BRAND STRIP ============== -->
+    <div class="brand-strip" aria-hidden="true">
+      <span class="bs-name">it.tools</span>
+      <span class="bs-sep">//</span>
+      <template v-for="(kw, i) in BRAND_KEYWORDS" :key="kw">
+        <span v-if="i > 0" class="bs-dot">·</span>
+        <span class="bs-kw">{{ kw }}</span>
+      </template>
+    </div>
+
+    <!-- ============== RECENT ============== -->
+    <section v-if="recentTools.length" class="block">
+      <div class="block-head">
+        <div>
+          <h2>{{ t('home.recent.title') }}</h2>
+        </div>
+      </div>
+      <div class="tool-grid">
+        <ToolCard v-for="tool in recentTools" :key="tool.id" :tool="tool" />
       </div>
     </section>
 
@@ -295,6 +367,129 @@ h1 {
   color: var(--muted-2);
 }
 
+/* ============== HERO SEARCH ============== */
+.hero-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 560px;
+  margin-top: var(--sp-6);
+}
+.hero-search input {
+  flex: 1;
+  width: 100%;
+  height: 52px;
+  padding: 0 56px 0 46px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-md);
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.hero-search input::placeholder { color: var(--muted-2); }
+.hero-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.ic-search {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted-2);
+  display: inline-flex;
+  pointer-events: none;
+}
+.hero-search-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  border: none;
+  background: linear-gradient(135deg, var(--accent), var(--amber));
+  color: #fff;
+  box-shadow: 0 6px 18px -8px var(--accent);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.hero-search-btn:hover { transform: translateY(-50%) scale(1.06); }
+.hero-search-btn :deep(svg) { color: #fff; }
+
+/* ============== QUICK CHIPS ============== */
+.quick-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  max-width: 640px;
+  margin-top: var(--sp-4);
+}
+.quick-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-2);
+  margin-right: 4px;
+}
+.quick-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.quick-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.quick-chip:hover {
+  color: var(--accent-text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+/* ============== BRAND STRIP ============== */
+.brand-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-10);
+  border-radius: var(--r-lg);
+  border: 1px dashed var(--border);
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--muted-2);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.brand-strip .bs-name {
+  font-weight: 700;
+  color: var(--accent-text);
+  letter-spacing: -0.01em;
+}
+.brand-strip .bs-sep,
+.brand-strip .bs-dot { color: var(--faint); }
+.brand-strip .bs-kw { color: var(--muted); transition: color var(--dur-fast) var(--ease); }
+.brand-strip .bs-kw:hover { color: var(--accent-text); }
+
 /* ============== BLOCKS ============== */
 .block { margin-bottom: var(--sp-12); }
 .block-head {
@@ -447,9 +642,12 @@ h1 {
   .hero { padding: var(--sp-8) 0 var(--sp-6); }
   .hero-stats { gap: var(--sp-6); }
   .why { padding: var(--sp-6); }
+  .brand-strip { margin-bottom: var(--sp-8); }
 }
 @media (max-width: 560px) {
   .hero-stats { gap: var(--sp-5); }
   .hero-stat .num { font-size: var(--fs-xl); }
+  .hero-search input { height: 48px; }
+  .quick-label { display: none; }
 }
 </style>

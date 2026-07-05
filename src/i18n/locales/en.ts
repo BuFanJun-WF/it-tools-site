@@ -47,11 +47,20 @@ export default {
         hall: 'Browse tool hall',
         feedback: 'Send feedback',
       },
+      searchPlaceholder: 'Search tools by name or keyword…',
+      quickAccess: 'Quick access',
     },
     featured: {
       title: 'Popular tools',
       subtitle: 'The most-used utilities developers reach for',
       more: 'View all',
+    },
+    badge: {
+      hot: 'Popular',
+      new: 'New',
+    },
+    recent: {
+      title: 'Recently used',
     },
     categories: {
       title: 'Browse by category',

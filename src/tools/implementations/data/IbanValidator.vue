@@ -85,11 +85,5 @@ const invalid = computed(() => input.value.trim() !== '' && result.value && !res
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .status-row { display: flex; }
 </style>

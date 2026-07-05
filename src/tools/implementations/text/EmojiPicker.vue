@@ -25,11 +25,13 @@ const active = ref(emojiSet[0][0])
 const search = ref('')
 const selected = ref<{ emoji: string; hex: string; decimal: number } | null>(null)
 
+// Flattened, de-duplicated emoji list for search — locale-independent, build once.
+const ALL_EMOJIS = [...new Set(emojiSet.flatMap(([, e]) => e.split(/\s+/)).filter(Boolean))]
+
 const list = computed(() => {
   const q = search.value.trim().toLowerCase()
   if (q) {
-    const all = [...new Set(emojiSet.flatMap(([, e]) => e.split(/\s+/)).filter(Boolean))]
-    return all.filter(e => e.codePointAt(0)!.toString(16).includes(q) || e.includes(q))
+    return ALL_EMOJIS.filter(e => e.codePointAt(0)!.toString(16).includes(q) || e.includes(q))
   }
   const cat = emojiSet.find(([n]) => n === active.value)
   return cat ? cat[1].split(/\s+/).filter(Boolean) : []
@@ -74,12 +76,6 @@ function pick(e: string) {
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .tabs {
   display: flex;
   flex-wrap: wrap;

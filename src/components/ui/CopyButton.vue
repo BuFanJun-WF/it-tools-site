@@ -15,8 +15,7 @@ const { t } = useI18n()
 const { copied, copy } = useClipboard()
 
 async function onClick() {
-  const value = typeof props.text === 'function' ? props.text() : props.text
-  await copy(value)
+  await copy(props.text)
 }
 </script>
 

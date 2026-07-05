@@ -13,7 +13,7 @@ export const catalog: Tool[] = [
   {
     id: 'hash-text',
     path: '/hash-text',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'hash',
     keywords: ['hash', 'digest', 'md5', 'sha1', 'sha256', 'sha512', 'sha3', 'ripemd', 'crypto', '哈希', '摘要'],
     nameKey: 'tools.hash-text.name',
@@ -23,7 +23,7 @@ export const catalog: Tool[] = [
   {
     id: 'bcrypt',
     path: '/bcrypt',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'lock',
     keywords: ['bcrypt', 'password', 'hash', 'salt', '密码哈希'],
     nameKey: 'tools.bcrypt.name',
@@ -33,17 +33,18 @@ export const catalog: Tool[] = [
   {
     id: 'uuid-generator',
     path: '/uuid-generator',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'fingerprint',
     keywords: ['uuid', 'v4', 'v1', 'v3', 'v5', 'random', 'identifier', 'guid', '唯一标识', '随机id'],
     nameKey: 'tools.uuid-generator.name',
     descKey: 'tools.uuid-generator.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'ulid-generator',
     path: '/ulid-generator',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'hashSquare',
     keywords: ['ulid', 'sortable', 'unique', 'id', 'identifier', '可排序id'],
     nameKey: 'tools.ulid-generator.name',
@@ -53,7 +54,7 @@ export const catalog: Tool[] = [
   {
     id: 'token-generator',
     path: '/token-generator',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'key',
     keywords: ['token', 'random', 'string', 'password', 'secret', '令牌', '随机串', '密码生成'],
     nameKey: 'tools.token-generator.name',
@@ -63,7 +64,7 @@ export const catalog: Tool[] = [
   {
     id: 'hmac-generator',
     path: '/hmac-generator',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'eyeOff',
     keywords: ['hmac', 'hash', 'mac', 'secret', 'signature', 'sha256', '消息认证'],
     nameKey: 'tools.hmac-generator.name',
@@ -73,7 +74,7 @@ export const catalog: Tool[] = [
   {
     id: 'rsa-key-pair-generator',
     path: '/rsa-key-pair-generator',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'key',
     keywords: ['rsa', 'pem', 'key', 'pair', 'public', 'private', 'crypto', 'webcrypto', '密钥对', '公钥', '私钥'],
     nameKey: 'tools.rsa-key-pair-generator.name',
@@ -83,7 +84,7 @@ export const catalog: Tool[] = [
   {
     id: 'password-strength-analyser',
     path: '/password-strength-analyser',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'password',
     keywords: ['password', 'strength', 'entropy', 'crack', 'security', 'zxcvbn', '密码强度', '熵'],
     nameKey: 'tools.password-strength-analyser.name',
@@ -93,7 +94,7 @@ export const catalog: Tool[] = [
   {
     id: 'bip39-generator',
     path: '/bip39-generator',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'discord',
     keywords: ['bip39', 'mnemonic', 'seed', 'wallet', 'crypto', 'bitcoin', 'ethereum', '助记词', '钱包'],
     nameKey: 'tools.bip39-generator.name',
@@ -103,7 +104,7 @@ export const catalog: Tool[] = [
   {
     id: 'encryption',
     path: '/encryption',
-    category: 'Crypto' as ToolCategory,
+    category: 'Crypto',
     icon: 'lock',
     keywords: ['encrypt', 'decrypt', 'aes', 'gcm', 'cipher', 'crypto', '加密', '解密'],
     nameKey: 'tools.encryption.name',
@@ -113,17 +114,18 @@ export const catalog: Tool[] = [
   {
     id: 'base64-string-converter',
     path: '/base64-string-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'binary',
     keywords: ['base64', 'encode', 'decode', 'atob', 'btoa', '编码', '解码'],
     nameKey: 'tools.base64-string-converter.name',
     descKey: 'tools.base64-string-converter.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'base64-file-converter',
     path: '/base64-file-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'fileCode',
     keywords: ['base64', 'file', 'image', 'data-uri', 'convert', '文件转base64'],
     nameKey: 'tools.base64-file-converter.name',
@@ -133,17 +135,18 @@ export const catalog: Tool[] = [
   {
     id: 'json-prettify',
     path: '/json-prettify',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'braces',
     keywords: ['json', 'prettify', 'format', 'beautify', 'minify', 'validate', '格式化', '美化', '校验'],
     nameKey: 'tools.json-prettify.name',
     descKey: 'tools.json-prettify.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'json-to-yaml',
     path: '/json-to-yaml',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'fileCode',
     keywords: ['json', 'yaml', 'convert', 'yml', '转换'],
     nameKey: 'tools.json-to-yaml.name',
@@ -153,7 +156,7 @@ export const catalog: Tool[] = [
   {
     id: 'json-to-toml',
     path: '/json-to-toml',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'fileCode',
     keywords: ['json', 'toml', 'convert', 'config', '配置'],
     nameKey: 'tools.json-to-toml.name',
@@ -163,7 +166,7 @@ export const catalog: Tool[] = [
   {
     id: 'case-converter',
     path: '/case-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'caseIcon',
     keywords: ['case', 'camel', 'snake', 'kebab', 'pascal', 'title', 'upper', 'lower', '大小写', '驼峰', '蛇形', '短横', '帕斯卡'],
     nameKey: 'tools.case-converter.name',
@@ -173,7 +176,7 @@ export const catalog: Tool[] = [
   {
     id: 'color-converter',
     path: '/color-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'palette',
     keywords: ['color', 'hex', 'rgb', 'hsl', 'css', 'convert', '颜色'],
     nameKey: 'tools.color-converter.name',
@@ -183,7 +186,7 @@ export const catalog: Tool[] = [
   {
     id: 'text-to-binary',
     path: '/text-to-binary',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'binary',
     keywords: ['binary', 'ascii', 'text', 'bits', '0', '1', '二进制'],
     nameKey: 'tools.text-to-binary.name',
@@ -193,7 +196,7 @@ export const catalog: Tool[] = [
   {
     id: 'text-to-nato-alphabet',
     path: '/text-to-nato-alphabet',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'nato',
     keywords: ['nato', 'phonetic', 'alphabet', 'alpha', 'bravo', 'charlie', '北约', '音标', '字母'],
     nameKey: 'tools.text-to-nato-alphabet.name',
@@ -203,7 +206,7 @@ export const catalog: Tool[] = [
   {
     id: 'integer-base-converter',
     path: '/integer-base-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'hashSquare',
     keywords: ['base', 'decimal', 'hex', 'binary', 'octal', 'radix', 'number', '进制', '十进制', '十六进制', '八进制'],
     nameKey: 'tools.integer-base-converter.name',
@@ -213,7 +216,7 @@ export const catalog: Tool[] = [
   {
     id: 'date-time-converter',
     path: '/date-time-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'calendar',
     keywords: ['date', 'time', 'unix', 'iso', 'timestamp', 'epoch', 'convert', '日期', '时间', '时间戳'],
     nameKey: 'tools.date-time-converter.name',
@@ -223,7 +226,7 @@ export const catalog: Tool[] = [
   {
     id: 'roman-numeral-converter',
     path: '/roman-numeral-converter',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'roman',
     keywords: ['roman', 'numeral', 'xiv', 'convert', '罗马数字'],
     nameKey: 'tools.roman-numeral-converter.name',
@@ -233,7 +236,7 @@ export const catalog: Tool[] = [
   {
     id: 'yaml-viewer',
     path: '/yaml-viewer',
-    category: 'Converter' as ToolCategory,
+    category: 'Converter',
     icon: 'fileCode',
     keywords: ['yaml', 'prettify', 'format', 'yml', 'yaml格式化'],
     nameKey: 'tools.yaml-viewer.name',
@@ -243,7 +246,7 @@ export const catalog: Tool[] = [
   {
     id: 'url-encoder',
     path: '/url-encoder',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'link',
     keywords: ['url', 'encode', 'decode', 'percent', 'uri', 'component', '百分号', '编码'],
     nameKey: 'tools.url-encoder.name',
@@ -253,7 +256,7 @@ export const catalog: Tool[] = [
   {
     id: 'url-parser',
     path: '/url-parser',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'globe',
     keywords: ['url', 'parse', 'query', 'params', 'search', 'hash', '解析', '参数'],
     nameKey: 'tools.url-parser.name',
@@ -263,17 +266,18 @@ export const catalog: Tool[] = [
   {
     id: 'jwt-parser',
     path: '/jwt-parser',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'key',
     keywords: ['jwt', 'json', 'web', 'token', 'auth', 'bearer', 'decode', '令牌', '解析'],
     nameKey: 'tools.jwt-parser.name',
     descKey: 'tools.jwt-parser.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'user-agent-parser',
     path: '/user-agent-parser',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'smartphone',
     keywords: ['user', 'agent', 'browser', 'os', 'device', 'parse', '浏览器', 'ua', '设备'],
     nameKey: 'tools.user-agent-parser.name',
@@ -283,7 +287,7 @@ export const catalog: Tool[] = [
   {
     id: 'http-status-codes',
     path: '/http-status-codes',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'httpStatus',
     keywords: ['http', 'status', 'code', '200', '404', '500', 'response', '状态码'],
     nameKey: 'tools.http-status-codes.name',
@@ -293,7 +297,7 @@ export const catalog: Tool[] = [
   {
     id: 'mime-types',
     path: '/mime-types',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'fileCode',
     keywords: ['mime', 'type', 'content', 'extension', 'file', '文件类型'],
     nameKey: 'tools.mime-types.name',
@@ -303,7 +307,7 @@ export const catalog: Tool[] = [
   {
     id: 'keycode-info',
     path: '/keycode-info',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'keyboard',
     keywords: ['key', 'keycode', 'keyboard', 'event', 'press', '键码', '按键'],
     nameKey: 'tools.keycode-info.name',
@@ -313,7 +317,7 @@ export const catalog: Tool[] = [
   {
     id: 'device-information',
     path: '/device-information',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'smartphone',
     keywords: ['device', 'screen', 'resolution', 'pixel', 'ua', 'information'],
     nameKey: 'tools.device-information.name',
@@ -323,7 +327,7 @@ export const catalog: Tool[] = [
   {
     id: 'basic-auth-generator',
     path: '/basic-auth-generator',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'lock',
     keywords: ['basic', 'auth', 'header', 'base64', 'authorization'],
     nameKey: 'tools.basic-auth-generator.name',
@@ -333,7 +337,7 @@ export const catalog: Tool[] = [
   {
     id: 'slugify-string',
     path: '/slugify-string',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'tagIcon',
     keywords: ['slug', 'slugify', 'url', 'safe', 'kebab', 'filename'],
     nameKey: 'tools.slugify-string.name',
@@ -343,27 +347,29 @@ export const catalog: Tool[] = [
   {
     id: 'json-diff',
     path: '/json-diff',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'diff',
     keywords: ['json', 'diff', 'compare', 'delta', '对比', '差异'],
     nameKey: 'tools.json-diff.name',
     descKey: 'tools.json-diff.description',
     implemented: true,
+    isNew: true,
   },
   {
     id: 'qrcode-generator',
     path: '/qrcode-generator',
-    category: 'Images & Videos' as ToolCategory,
+    category: 'Images & Videos',
     icon: 'qrCode',
     keywords: ['qr', 'code', 'generator', 'square', 'url', 'link', '二维码'],
     nameKey: 'tools.qrcode-generator.name',
     descKey: 'tools.qrcode-generator.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'wifi-qrcode-generator',
     path: '/wifi-qrcode-generator',
-    category: 'Images & Videos' as ToolCategory,
+    category: 'Images & Videos',
     icon: 'wifi',
     keywords: ['wifi', 'qr', 'code', 'network', 'ssid', 'connect', '无线网', '二维码'],
     nameKey: 'tools.wifi-qrcode-generator.name',
@@ -373,7 +379,7 @@ export const catalog: Tool[] = [
   {
     id: 'svg-placeholder-generator',
     path: '/svg-placeholder-generator',
-    category: 'Images & Videos' as ToolCategory,
+    category: 'Images & Videos',
     icon: 'image',
     keywords: ['svg', 'placeholder', 'image', 'mock', 'generate', '占位图'],
     nameKey: 'tools.svg-placeholder-generator.name',
@@ -383,7 +389,7 @@ export const catalog: Tool[] = [
   {
     id: 'git-memo',
     path: '/git-memo',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'fileText',
     keywords: ['git', 'cheatsheet', 'commands', 'reference', 'memo', '速查', '命令'],
     nameKey: 'tools.git-memo.name',
@@ -393,7 +399,7 @@ export const catalog: Tool[] = [
   {
     id: 'random-port-generator',
     path: '/random-port-generator',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'ethernet',
     keywords: ['port', 'random', 'network', 'generate', '端口', '随机'],
     nameKey: 'tools.random-port-generator.name',
@@ -403,7 +409,7 @@ export const catalog: Tool[] = [
   {
     id: 'crontab-generator',
     path: '/crontab-generator',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'clock',
     keywords: ['cron', 'crontab', 'schedule', '定时', 'generator', '表达式'],
     nameKey: 'tools.crontab-generator.name',
@@ -413,7 +419,7 @@ export const catalog: Tool[] = [
   {
     id: 'chmod-calculator',
     path: '/chmod-calculator',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'lock',
     keywords: ['chmod', 'permission', 'unix', 'linux', 'rwx', 'octal', '权限'],
     nameKey: 'tools.chmod-calculator.name',
@@ -423,17 +429,18 @@ export const catalog: Tool[] = [
   {
     id: 'regex-tester',
     path: '/regex-tester',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'code',
     keywords: ['regex', 'regexp', 'regular', 'expression', 'match', 'test', 'pattern', '正则', '匹配'],
     nameKey: 'tools.regex-tester.name',
     descKey: 'tools.regex-tester.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'json-minify',
     path: '/json-minify',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'braces',
     keywords: ['json', 'minify', 'compress', 'whitespace', '压缩'],
     nameKey: 'tools.json-minify.name',
@@ -443,7 +450,7 @@ export const catalog: Tool[] = [
   {
     id: 'sql-prettify',
     path: '/sql-prettify',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'fileCode',
     keywords: ['sql', 'prettify', 'format', 'query', 'beautify', '格式化'],
     nameKey: 'tools.sql-prettify.name',
@@ -453,7 +460,7 @@ export const catalog: Tool[] = [
   {
     id: 'ipv4-subnet-calculator',
     path: '/ipv4-subnet-calculator',
-    category: 'Network' as ToolCategory,
+    category: 'Network',
     icon: 'network',
     keywords: ['ipv4', 'subnet', 'cidr', 'network', 'mask', 'calculator', '子网', '掩码'],
     nameKey: 'tools.ipv4-subnet-calculator.name',
@@ -463,7 +470,7 @@ export const catalog: Tool[] = [
   {
     id: 'ipv4-address-converter',
     path: '/ipv4-address-converter',
-    category: 'Network' as ToolCategory,
+    category: 'Network',
     icon: 'ethernet',
     keywords: ['ipv4', 'ip', 'convert', 'binary', 'hex', 'decimal', '地址', '转换'],
     nameKey: 'tools.ipv4-address-converter.name',
@@ -473,7 +480,7 @@ export const catalog: Tool[] = [
   {
     id: 'mac-address-generator',
     path: '/mac-address-generator',
-    category: 'Network' as ToolCategory,
+    category: 'Network',
     icon: 'ethernet',
     keywords: ['mac', 'address', 'generate', 'network', 'oui', '网卡'],
     nameKey: 'tools.mac-address-generator.name',
@@ -483,7 +490,7 @@ export const catalog: Tool[] = [
   {
     id: 'math-evaluator',
     path: '/math-evaluator',
-    category: 'Math' as ToolCategory,
+    category: 'Math',
     icon: 'calculator',
     keywords: ['math', 'evaluator', 'calculator', 'expression', 'sqrt', 'cos', 'sin', '计算', '表达式', '求值'],
     nameKey: 'tools.math-evaluator.name',
@@ -493,7 +500,7 @@ export const catalog: Tool[] = [
   {
     id: 'percentage-calculator',
     path: '/percentage-calculator',
-    category: 'Math' as ToolCategory,
+    category: 'Math',
     icon: 'percent',
     keywords: ['percentage', 'percent', 'calc', 'ratio', '百分比', '占比'],
     nameKey: 'tools.percentage-calculator.name',
@@ -503,7 +510,7 @@ export const catalog: Tool[] = [
   {
     id: 'chronometer',
     path: '/chronometer',
-    category: 'Measurement' as ToolCategory,
+    category: 'Measurement',
     icon: 'clock',
     keywords: ['chrono', 'stopwatch', 'timer', 'time', 'duration', 'lap', '秒表', '计时'],
     nameKey: 'tools.chronometer.name',
@@ -513,7 +520,7 @@ export const catalog: Tool[] = [
   {
     id: 'temperature-converter',
     path: '/temperature-converter',
-    category: 'Measurement' as ToolCategory,
+    category: 'Measurement',
     icon: 'thermometer',
     keywords: ['temperature', 'convert', 'celsius', 'fahrenheit', 'kelvin', '温度', '摄氏', '华氏', '开尔文'],
     nameKey: 'tools.temperature-converter.name',
@@ -523,7 +530,7 @@ export const catalog: Tool[] = [
   {
     id: 'lorem-ipsum-generator',
     path: '/lorem-ipsum-generator',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'alignLeft',
     keywords: ['lorem', 'ipsum', 'placeholder', 'text', 'dummy', 'generate', '占位文', '乱数假文'],
     nameKey: 'tools.lorem-ipsum-generator.name',
@@ -533,7 +540,7 @@ export const catalog: Tool[] = [
   {
     id: 'text-statistics',
     path: '/text-statistics',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'sigma',
     keywords: ['text', 'statistics', 'count', 'characters', 'words', 'lines', 'bytes', '字数', '统计'],
     nameKey: 'tools.text-statistics.name',
@@ -543,7 +550,7 @@ export const catalog: Tool[] = [
   {
     id: 'text-diff',
     path: '/text-diff',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'diff',
     keywords: ['text', 'diff', 'compare', 'difference', '文本对比', '差异'],
     nameKey: 'tools.text-diff.name',
@@ -553,7 +560,7 @@ export const catalog: Tool[] = [
   {
     id: 'string-obfuscator',
     path: '/string-obfuscator',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'eyeOff',
     keywords: ['obfuscate', 'mask', 'redact', 'string', 'secret', 'iban', '混淆'],
     nameKey: 'tools.string-obfuscator.name',
@@ -563,7 +570,7 @@ export const catalog: Tool[] = [
   {
     id: 'list-converter',
     path: '/list-converter',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'alignLeft',
     keywords: ['list', 'column', 'transpose', 'prefix', 'suffix', 'sort', 'dedupe', '列表', '分隔'],
     nameKey: 'tools.list-converter.name',
@@ -573,7 +580,7 @@ export const catalog: Tool[] = [
   {
     id: 'emoji-picker',
     path: '/emoji-picker',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'smile',
     keywords: ['emoji', 'picker', 'unicode', 'copy', '表情'],
     nameKey: 'tools.emoji-picker.name',
@@ -583,7 +590,7 @@ export const catalog: Tool[] = [
   {
     id: 'numeronym-generator',
     path: '/numeronym-generator',
-    category: 'Text' as ToolCategory,
+    category: 'Text',
     icon: 'caseIcon',
     keywords: ['numeronym', 'abbreviation', 'i18n', 'l10n', 'a11y'],
     nameKey: 'tools.numeronym-generator.name',
@@ -593,7 +600,7 @@ export const catalog: Tool[] = [
   {
     id: 'phone-parser-and-formatter',
     path: '/phone-parser-and-formatter',
-    category: 'Data' as ToolCategory,
+    category: 'Data',
     icon: 'phone',
     keywords: ['phone', 'number', 'parse', 'format', 'validate', 'country', '电话', '手机'],
     nameKey: 'tools.phone-parser-and-formatter.name',
@@ -603,17 +610,18 @@ export const catalog: Tool[] = [
   {
     id: 'iban-validator-and-parser',
     path: '/iban-validator-and-parser',
-    category: 'Data' as ToolCategory,
+    category: 'Data',
     icon: 'creditCard',
     keywords: ['iban', 'bank', 'validate', 'parse', 'account', 'check', '银行账号'],
     nameKey: 'tools.iban-validator-and-parser.name',
     descKey: 'tools.iban-validator-and-parser.description',
     implemented: true,
+    isNew: true,
   },
   {
     id: 'html-entities',
     path: '/html-entities',
-    category: 'Web' as ToolCategory,
+    category: 'Web',
     icon: 'code',
     keywords: ['html', 'entities', 'escape', 'unescape', 'encode', 'decode', '实体', '转义'],
     nameKey: 'tools.html-entities.name',
@@ -623,7 +631,7 @@ export const catalog: Tool[] = [
   {
     id: 'docker-run-to-compose',
     path: '/docker-run-to-compose',
-    category: 'Development' as ToolCategory,
+    category: 'Development',
     icon: 'fileCode',
     keywords: ['docker', 'compose', 'run', 'convert', 'yaml'],
     nameKey: 'tools.docker-run-to-compose.name',
@@ -632,11 +640,21 @@ export const catalog: Tool[] = [
   },
 ]
 
+const toolById = new Map(catalog.map(t => [t.id, t]))
+const toolByPath = new Map(catalog.map(t => [t.path, t]))
+
 export function findTool(idOrPath: string): Tool | undefined {
   const key = idOrPath.startsWith("/") ? idOrPath.slice(1) : idOrPath
-  return catalog.find(t => t.id === key || t.path === idOrPath)
+  return toolById.get(key) ?? toolByPath.get(idOrPath)
 }
 
 export function toolsByCategory(cat: string): Tool[] {
   return catalog.filter(t => t.category === cat)
+}
+
+/** Resolve an ordered list of tool ids to their Tool metadata, dropping unknowns. */
+export function toolsFromIds(ids: string[]): Tool[] {
+  return ids
+    .map(id => toolById.get(id))
+    .filter((t): t is Tool => Boolean(t))
 }

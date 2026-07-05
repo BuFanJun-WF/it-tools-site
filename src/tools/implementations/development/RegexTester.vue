@@ -29,9 +29,7 @@ const result = computed<{ matches: Match[]; highlighted: string; error: string }
   let m: RegExpExecArray | null
   let lastIdx = 0
   let html = ''
-  let any = false
   while ((m = re.exec(text.value)) !== null) {
-    any = true
     matches.push({ match: m[0], index: m.index, groups: m.slice(1) })
     html += escapeHtml(text.value.slice(lastIdx, m.index))
     html += `<mark>${escapeHtml(m[0])}</mark>`
@@ -39,15 +37,12 @@ const result = computed<{ matches: Match[]; highlighted: string; error: string }
     if (m.index === re.lastIndex) re.lastIndex++
   }
   html += escapeHtml(text.value.slice(lastIdx))
-  void any
   return { matches, highlighted: html, error: '' }
 })
 
 function escapeHtml(s: string) {
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] ?? c)
 }
-
-const matchCount = computed(() => result.value.matches.length)
 </script>
 
 <template>
@@ -72,7 +67,7 @@ const matchCount = computed(() => result.value.matches.length)
       <Row justify="space-between" style="margin-bottom: var(--sp-2);">
         <FieldLabel style="margin-bottom: 0;">{{ t('impl.regex-tester.textLabel') }}</FieldLabel>
         <TagBadge v-if="result.error" variant="del">{{ t('impl.regex-tester.invalidRegex') }}</TagBadge>
-        <TagBadge v-else-if="matchCount" variant="add">{{ t('impl.regex-tester.matches', { n: matchCount }) }}</TagBadge>
+        <TagBadge v-else-if="result.matches.length" variant="add">{{ t('impl.regex-tester.matches', { n: result.matches.length }) }}</TagBadge>
         <TagBadge v-else>{{ t('impl.regex-tester.noMatch') }}</TagBadge>
       </Row>
       <OutputBox :empty="!!result.error">
@@ -82,7 +77,7 @@ const matchCount = computed(() => result.value.matches.length)
     </div>
 
     <div v-if="result.matches.length">
-      <FieldLabel>{{ t('impl.regex-tester.matches', { n: matchCount }) }}</FieldLabel>
+      <FieldLabel>{{ t('impl.regex-tester.matches', { n: result.matches.length }) }}</FieldLabel>
       <div class="match-list">
         <div v-for="(m, i) in result.matches" :key="i" class="match-item">
           <span class="idx">#{{ i + 1 }}</span>
@@ -95,12 +90,6 @@ const matchCount = computed(() => result.value.matches.length)
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .pattern-row {
   display: flex;
   gap: var(--sp-3);

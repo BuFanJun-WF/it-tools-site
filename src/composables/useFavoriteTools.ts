@@ -1,7 +1,6 @@
 import { computed } from 'vue'
-import { catalog } from '@/data/catalog'
+import { toolsFromIds } from '@/data/catalog'
 import { useFavoritesStore } from '@/stores/favorites'
-import type { Tool } from '@/types/tool'
 
 /**
  * Resolve the user's favorited tool ids to their full Tool metadata, in the
@@ -10,12 +9,6 @@ import type { Tool } from '@/types/tool'
  */
 export function useFavoriteTools() {
   const favs = useFavoritesStore()
-
-  const favTools = computed<Tool[]>(() =>
-    favs.ids
-      .map(id => catalog.find(tool => tool.id === id))
-      .filter((tool): tool is Tool => Boolean(tool)),
-  )
-
+  const favTools = computed(() => toolsFromIds(favs.ids))
   return { favTools }
 }
