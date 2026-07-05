@@ -1,0 +1,31 @@
+{
+  "name": "it-tools-site",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A curated collection of handy, fully client-side developer tools — Vue 3 + TypeScript + Vite rewrite.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/hanken-grotesk": "^5.0.1",
+    "@fontsource-variable/space-grotesk": "^5.0.0",
+    "@fontsource/jetbrains-mono": "^5.0.0",
+    "@vueuse/core": "^11.1.0",
+    "js-sha3": "^0.9.3",
+    "pinia": "^2.2.4",
+    "qrious": "^4.0.2",
+    "vue": "^3.5.12",
+    "vue-i18n": "^9.14.1",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vue-tsc": "^2.1.10"
+  }
+}
