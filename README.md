@@ -1,6 +1,7 @@
 # it·tools — a re-imagined developer toolbox
 
 A redesigned take on the beloved **[it-tools](https://github.com/CorentinTh/it-tools)** by CorentinTh.
+This fork's source: **[BuFanJun-WF/it-tools-site](https://github.com/BuFanJun-WF/it-tools-site)**.
 Same mission — a handy, fully client-side collection of developer utilities — rebuilt with
 **Vue 3 + TypeScript + Vite**, an original warm "Builder SaaS" design system, and full
 **English / 中文** bilingual support.
@@ -131,4 +132,8 @@ it-tools-site/
 ## Credits
 
 - Original project & all the great tool ideas: **[CorentinTh/it-tools](https://github.com/CorentinTh/it-tools)** (GPL-3.0)
-- This front-end: original work, designed and built from scratch.
+- This front-end: original work, designed and built from scratch — **[BuFanJun-WF/it-tools-site](https://github.com/BuFanJun-WF/it-tools-site)**
+
+---
+
+🌐 **[中文说明](./README.zh-CN.md)**

@@ -55,7 +55,7 @@ function catLabel(cat: string) {
     </nav>
 
     <div class="sidebar-footer">
-      <a href="https://github.com/CorentinTh/it-tools" target="_blank" rel="noopener">
+      <a href="https://github.com/BuFanJun-WF/it-tools-site" target="_blank" rel="noopener">
         <AppIcon name="github" :size="14" />
         <span>{{ t('app.actions.inspiredBy') }}</span>
       </a>
