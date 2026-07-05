@@ -99,12 +99,6 @@ const diff = computed<{ lines: Line[]; identical: boolean; error: string }>(() =
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .diff-out {
   margin: 0;
   padding: var(--sp-3);

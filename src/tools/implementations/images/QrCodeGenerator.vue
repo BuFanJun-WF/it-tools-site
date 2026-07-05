@@ -98,12 +98,6 @@ function download() {
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .range { width: 100%; accent-color: var(--accent); }
 .two-col {
   display: grid;

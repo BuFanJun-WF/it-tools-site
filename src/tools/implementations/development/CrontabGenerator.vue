@@ -126,12 +126,6 @@ const examples = [
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .chip {
   height: 30px;
   padding: 0 var(--sp-3);

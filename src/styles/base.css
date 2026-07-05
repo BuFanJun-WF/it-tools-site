@@ -95,6 +95,35 @@ mark {
   font-size: var(--fs-sm);
 }
 
+/* Form field — shared by TextInput / TextArea / SelectInput. */
+.field {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+.field::placeholder { color: var(--muted-2); }
+.field:hover { border-color: var(--border-strong); }
+.field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Tool body — framed container every tool implementation renders into. */
+.tool-body {
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
 @media (max-width: 920px) {
   .grid-2,
   .grid-2.uneven {

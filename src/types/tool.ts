@@ -26,6 +26,10 @@ export interface Tool {
   descKey: string
   /** True if the tool has a Vue implementation registered; false shows "Coming soon". */
   implemented: boolean
+  /** Marks a commonly-used tool with a "hot" badge on cards. */
+  hot?: boolean
+  /** Marks a recently-shipped tool with a "new" badge on cards. */
+  isNew?: boolean
 }
 
 export interface CategoryMeta {

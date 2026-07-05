@@ -1,5 +1,9 @@
 <script setup lang="ts">
-withDefaults(defineProps<{ gap?: number; wrap?: boolean; justify?: string }>(), {
+withDefaults(defineProps<{
+  gap?: number
+  wrap?: boolean
+  justify?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
+}>(), {
   gap: 12,
   wrap: true,
   justify: undefined,

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import IconBtn from '@/components/ui/IconBtn.vue'
@@ -9,6 +10,8 @@ import type { Tool } from '@/types/tool'
 const props = defineProps<{ tool: Tool }>()
 const { t } = useI18n()
 const favs = useFavoritesStore()
+
+const isFav = computed(() => favs.isFavorite(props.tool.id))
 
 function onFav() {
   favs.toggle(props.tool.id)
@@ -27,11 +30,11 @@ function onFav() {
       </div>
     </div>
     <IconBtn
-      :active="favs.isFavorite(tool.id)"
-      :title="favs.isFavorite(tool.id) ? t('tool.unfavorite') : t('tool.favorite')"
+      :active="isFav"
+      :title="isFav ? t('tool.unfavorite') : t('tool.favorite')"
       @click="onFav"
     >
-      <AppIcon :name="favs.isFavorite(tool.id) ? 'star' : 'starOutline'" :size="18" />
+      <AppIcon :name="isFav ? 'star' : 'starOutline'" :size="18" />
     </IconBtn>
   </header>
 </template>

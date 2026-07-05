@@ -78,12 +78,6 @@ function loadExample() {
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .link-btn {
   background: none;
   border: none;

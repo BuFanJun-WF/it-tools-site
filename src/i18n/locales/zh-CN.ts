@@ -47,11 +47,20 @@ export default {
         hall: '进入工具大厅',
         feedback: '留言反馈',
       },
+      searchPlaceholder: '搜索工具名称或关键词…',
+      quickAccess: '快捷入口',
     },
     featured: {
       title: '热门工具',
       subtitle: '开发者最常用的效率利器',
       more: '查看全部',
+    },
+    badge: {
+      hot: '热门',
+      new: '新增',
+    },
+    recent: {
+      title: '最近使用',
     },
     categories: {
       title: '按分类浏览',

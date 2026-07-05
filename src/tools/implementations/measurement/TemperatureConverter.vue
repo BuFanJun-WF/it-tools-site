@@ -76,12 +76,6 @@ const invalid = computed(() => input.value.trim() !== '' && isNaN(Number(input.v
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .seg {
   display: inline-flex;
   border-radius: var(--r-md);

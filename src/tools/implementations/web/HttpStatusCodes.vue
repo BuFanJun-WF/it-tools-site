@@ -81,12 +81,6 @@ const clsColor: Record<Status['cls'], string> = {
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .search-row { position: relative; }
 .search-ic {
   position: absolute;

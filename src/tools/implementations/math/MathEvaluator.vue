@@ -10,6 +10,14 @@ import Row from '@/components/ui/Row.vue'
 
 const { t } = useI18n()
 
+// Allowed Math functions and constants — single source for both validation
+// and the rewriter that prefixes them with `Math.`.
+const FUNCS = ['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sqrt', 'log', 'log2', 'log10', 'abs', 'ceil', 'floor', 'round', 'exp', 'sign', 'min', 'max', 'pow']
+const CONSTS = ['PI', 'E']
+const ALLOWED = [...FUNCS, ...CONSTS]
+const FN_RE = new RegExp(`\\b(${FUNCS.join('|')})\\b`, 'g')
+const CONST_RE = new RegExp(`\\b(${CONSTS.join('|')})\\b`, 'g')
+
 const input = ref('2 + 3 * (4 - 1)')
 
 const result = computed(() => {
@@ -20,14 +28,15 @@ const result = computed(() => {
     return { ok: false, value: '', error: t('impl.math-evaluator.invalid') }
   }
   try {
-    // Allow a curated set of Math functions and constants
-    const allowed = ['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sqrt', 'log', 'log2', 'log10', 'abs', 'ceil', 'floor', 'round', 'exp', 'sign', 'min', 'max', 'pow', 'PI', 'E']
-    for (const name of allowed) {
+    for (const name of ALLOWED) {
       if (expr.includes(name) && !(name in Math)) return { ok: false, value: '', error: t('impl.math-evaluator.invalid') }
     }
-    // Convert ^ to **, then evaluate
-    const safe = expr.replace(/\^/g, '**').replace(/\b(sin|cos|tan|asin|acos|atan|sqrt|log2|log10|log|abs|ceil|floor|round|exp|sign|min|max|pow)\b/g, 'Math.$1').replace(/\bPI\b/g, 'Math.PI').replace(/\bE\b/g, 'Math.E')
-    // eslint-disable-next-line no-new-func
+    // Convert ^ to **, prefix allowed names with Math., then evaluate
+    const safe = expr
+      .replace(/\^/g, '**')
+      .replace(FN_RE, 'Math.$1')
+      .replace(CONST_RE, 'Math.$&')
+    // eslint-disable-next-line no-new-Func
     const fn = new Function(`"use strict"; return (${safe});`)
     const val = fn()
     if (typeof val !== 'number' || !isFinite(val)) return { ok: false, value: '', error: t('impl.math-evaluator.invalid') }
@@ -60,12 +69,6 @@ const result = computed(() => {
 </template>
 
 <style scoped>
-.tool-body {
-  padding: var(--sp-6);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
 .hint {
   margin: 0;
   color: var(--muted-2);

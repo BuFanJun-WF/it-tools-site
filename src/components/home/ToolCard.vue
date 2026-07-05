@@ -53,7 +53,8 @@ function highlight(text: string, q?: string) {
   >
     <!-- Top row: status badge + favorite -->
     <div class="top">
-      <span v-if="featured" class="badge hot">{{ t('home.featured.title') }}</span>
+      <span v-if="tool.isNew" class="badge new">{{ t('home.badge.new') }}</span>
+      <span v-else-if="tool.hot" class="badge hot">{{ t('home.badge.hot') }}</span>
       <span v-else-if="!tool.implemented" class="badge soon">{{ t('tool.comingSoon.title') }}</span>
       <span v-else class="spacer" />
 
