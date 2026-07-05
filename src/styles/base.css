@@ -102,6 +102,48 @@ mark {
   }
 }
 
+/* ========================================================================
+   Marketplace layout helpers
+   ======================================================================== */
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--sp-8) var(--sp-6) var(--sp-12);
+}
+.page.tight { padding-top: var(--sp-6); }
+
+/* Route-level entrance — subtle upward fade */
+.page-enter {
+  animation: page-enter var(--dur-slow) var(--ease-out) both;
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Status badge — used on cards & list rows */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.badge.hot { color: var(--badge-hot-fg); background: var(--badge-hot-bg); }
+.badge.new { color: var(--badge-new-fg); background: var(--badge-new-bg); }
+.badge.soon { color: var(--badge-soon-fg); background: var(--badge-soon-bg); }
+
+@media (max-width: 920px) {
+  .page { padding: var(--sp-6) var(--sp-4) var(--sp-10); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;

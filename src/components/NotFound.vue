@@ -7,13 +7,15 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="empty-state">
-    <AppIcon name="search" :size="48" />
-    <h3>{{ t('notFound.title') }}</h3>
-    <p>{{ t('notFound.body') }}</p>
-    <RouterLink to="/">
-      <BaseButton variant="primary">{{ t('notFound.back') }}</BaseButton>
-    </RouterLink>
+  <div class="page">
+    <div class="empty-state">
+      <AppIcon name="search" :size="48" />
+      <h3>{{ t('notFound.title') }}</h3>
+      <p>{{ t('notFound.body') }}</p>
+      <RouterLink to="/">
+        <BaseButton variant="primary">{{ t('notFound.back') }}</BaseButton>
+      </RouterLink>
+    </div>
   </div>
 </template>
 

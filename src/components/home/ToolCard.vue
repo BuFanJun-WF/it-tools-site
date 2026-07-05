@@ -6,15 +6,16 @@ import AppIcon from '@/components/ui/AppIcon.vue'
 import { useFavoritesStore } from '@/stores/favorites'
 import type { Tool } from '@/types/tool'
 
-const props = defineProps<{ tool: Tool; query?: string }>()
+const props = defineProps<{ tool: Tool; query?: string; featured?: boolean }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const router = useRouter()
 const favs = useFavoritesStore()
 
 const isFav = computed(() => favs.isFavorite(props.tool.id))
 const name = computed(() => t(props.tool.nameKey))
 const desc = computed(() => t(props.tool.descKey))
+const enterLabel = computed(() => (locale.value.startsWith('zh') ? '进入' : 'Enter'))
 
 const cardRef = ref<HTMLElement | null>(null)
 
@@ -46,42 +47,54 @@ function highlight(text: string, q?: string) {
 <template>
   <article
     ref="cardRef"
-    :class="['tool-card', !tool.implemented && 'dim']"
+    :class="['mkt-card', featured && 'featured', !tool.implemented && 'dim']"
     @mousemove="onMouseMove"
     @click="onClick"
   >
+    <!-- Top row: status badge + favorite -->
     <div class="top">
-      <span class="ic"><AppIcon :name="tool.icon" :size="20" /></span>
+      <span v-if="featured" class="badge hot">{{ t('home.featured.title') }}</span>
+      <span v-else-if="!tool.implemented" class="badge soon">{{ t('tool.comingSoon.title') }}</span>
+      <span v-else class="spacer" />
+
       <button
         :class="['star', isFav && 'active']"
         data-fav
-        :aria-label="$t('tool.favorite')"
+        :aria-label="t('tool.favorite')"
         @click.stop.prevent="favs.toggle(tool.id)"
       >
         <AppIcon :name="isFav ? 'star' : 'starOutline'" :size="14" />
       </button>
     </div>
 
+    <!-- Body: icon + name + desc -->
     <div class="body">
-      <div class="name" v-html="highlight(name, query)" />
-      <div class="desc" v-html="highlight(desc, query)" />
+      <span class="ic"><AppIcon :name="tool.icon" :size="20" /></span>
+      <div class="text">
+        <div class="name" v-html="highlight(name, query)" />
+        <div class="desc" v-html="highlight(desc, query)" />
+      </div>
     </div>
 
-    <div class="meta">
+    <!-- Footer: category tag + enter -->
+    <div class="foot">
       <span class="cat-tag">{{ t(`categories.${tool.category}`) }}</span>
-      <span v-if="!tool.implemented" class="soon-tag">{{ t('tool.comingSoon.title') }}</span>
+      <span class="enter">
+        <span class="enter-text">{{ enterLabel }}</span>
+        <AppIcon name="arrowRight" :size="14" />
+      </span>
     </div>
   </article>
 </template>
 
 <style scoped>
-.tool-card {
+.mkt-card {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
   padding: var(--sp-4);
-  border-radius: var(--r-lg);
+  border-radius: var(--r-xl);
   border: 1px solid var(--border);
   background: var(--surface);
   cursor: pointer;
@@ -89,14 +102,15 @@ function highlight(text: string, q?: string) {
   transition:
     border-color var(--dur) var(--ease),
     transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
     background-color var(--dur) var(--ease);
 }
-.tool-card::before {
+.mkt-card::before {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    260px circle at var(--mx, 50%) var(--my, 0%),
+    280px circle at var(--mx, 50%) var(--my, 0%),
     var(--accent-soft),
     transparent 60%
   );
@@ -104,35 +118,23 @@ function highlight(text: string, q?: string) {
   transition: opacity var(--dur) var(--ease);
   pointer-events: none;
 }
-.tool-card:hover {
+.mkt-card:hover {
   border-color: var(--border-strong);
-  transform: translateY(-2px);
-  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
 }
-.tool-card:hover::before { opacity: 1; }
-.tool-card.dim { opacity: 0.78; }
-.tool-card.dim:hover { opacity: 1; }
+.mkt-card:hover::before { opacity: 1; }
+.mkt-card.dim { opacity: 0.78; }
+.mkt-card.dim:hover { opacity: 1; }
 
+/* Top row */
 .top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 22px;
 }
-.ic {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: var(--r-md);
-  background: var(--surface-2);
-  color: var(--muted);
-  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.tool-card:hover .ic {
-  background: var(--accent-soft);
-  color: var(--accent-text);
-}
+.spacer { width: 1px; }
 .star {
   display: inline-flex;
   align-items: center;
@@ -148,7 +150,31 @@ function highlight(text: string, q?: string) {
 .star:hover { background: var(--surface-2); color: var(--amber); }
 .star.active { color: var(--amber); }
 
-.body { flex: 1; min-width: 0; }
+/* Body */
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  flex: 1;
+  min-width: 0;
+}
+.ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.mkt-card:hover .ic {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.text { flex: 1; min-width: 0; }
 .name {
   font-family: var(--font-display);
   font-weight: 600;
@@ -168,16 +194,18 @@ function highlight(text: string, q?: string) {
   overflow: hidden;
 }
 
-.meta {
+/* Footer */
+.foot {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 2px;
 }
-.cat-tag,
-.soon-tag {
+.cat-tag {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: var(--r-pill);
   background: var(--surface-2);
   color: var(--muted-2);
@@ -185,8 +213,16 @@ function highlight(text: string, q?: string) {
   font-size: 10px;
   font-weight: 500;
 }
-.soon-tag {
-  background: var(--amber-soft);
-  color: var(--amber);
+.enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  transition: color var(--dur-fast) var(--ease);
 }
+.enter :deep(svg) { transition: transform var(--dur-fast) var(--ease); }
+.mkt-card:hover .enter { color: var(--accent-text); }
+.mkt-card:hover .enter :deep(svg) { transform: translateX(2px); }
 </style>

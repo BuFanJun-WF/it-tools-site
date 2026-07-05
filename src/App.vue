@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import { useThemeStore } from '@/stores/theme'
 import { useLocaleStore } from '@/stores/locale'
 import { useFavoritesStore } from '@/stores/favorites'
-import AppShell from '@/components/shell/AppShell.vue'
+import MarketLayout from '@/components/shell/MarketLayout.vue'
 
 const theme = useThemeStore()
 const locale = useLocaleStore()
@@ -18,5 +18,5 @@ useFavoritesStore()
 </script>
 
 <template>
-  <AppShell />
+  <MarketLayout />
 </template>
