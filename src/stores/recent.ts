@@ -7,7 +7,9 @@ const MAX_RECENT = 8
 function load(): string[] {
   try {
     const raw = localStorage.getItem(RECENT_KEY)
-    return raw ? (JSON.parse(raw) as string[]) : []
+    const parsed = raw ? JSON.parse(raw) : []
+    // 形状校验：localStorage 被篡改成非数组/非字符串时降级为空。
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === 'string') : []
   } catch {
     return []
   }
@@ -17,7 +19,7 @@ export const useRecentStore = defineStore('recent', () => {
   const ids = ref<string[]>(load())
 
   function persist() {
-    localStorage.setItem(RECENT_KEY, JSON.stringify(ids.value))
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(ids.value)) } catch { /* 隐私模式/配额超限，静默 */ }
   }
 
   /** Record a tool visit: dedupe, move to front, cap at MAX_RECENT. */

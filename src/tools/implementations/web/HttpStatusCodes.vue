@@ -76,7 +76,7 @@ const clsColor: Record<Status['cls'], string> = {
       </article>
     </div>
 
-    <p v-if="!results.length" class="muted-line">{{ t('impl.emoji-picker.noMatch') }}</p>
+    <p v-if="!results.length" class="muted-line">{{ t('impl.http-status-codes.noMatch') }}</p>
   </Stack>
 </template>
 

@@ -32,8 +32,10 @@ const result = computed(() => {
   const wildcard = (~mask) >>> 0
   const network = (ipInt & mask) >>> 0
   const broadcast = (network | wildcard) >>> 0
-  const firstHost = prefix === 32 ? network : (network + 1) >>> 0
-  const lastHost = prefix === 32 ? network : (broadcast - 1) >>> 0
+  // /31（RFC 3021 point-to-point）与 /32 不保留 network/broadcast，
+  // 两个地址均为主机地址；其它前缀照常 network+1 … broadcast-1。
+  const firstHost = prefix >= 31 ? network : (network + 1) >>> 0
+  const lastHost = prefix >= 31 ? broadcast : (broadcast - 1) >>> 0
   const totalHosts = prefix >= 31 ? (prefix === 32 ? 1 : 2) : (Math.pow(2, 32 - prefix) - 2)
   const ipClass = (() => {
     const first = (network >>> 24) & 255

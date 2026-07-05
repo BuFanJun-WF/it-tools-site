@@ -19,7 +19,12 @@ const parsed = computed<{ header: Part | null; payload: Part | null; signature: 
   if (parts.length !== 3) return null
   try {
     const decode = (s: string): Part => {
-      const json = JSON.parse(atob(s.replace(/-/g, '+').replace(/_/g, '/')))
+      // base64url → base64，补齐 padding，再用 TextDecoder 做 UTF-8 解码
+      // （atob 返回 Latin-1 binary string，直接 JSON.parse 对非 ASCII 会乱码）。
+      const b64 = s.replace(/-/g, '+').replace(/_/g, '/')
+      const padded = b64 + '='.repeat((4 - (b64.length % 4)) % 4)
+      const bin = atob(padded)
+      const json = JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0))))
       return { raw: s, pretty: JSON.stringify(json, null, 2) }
     }
     return { header: decode(parts[0]), payload: decode(parts[1]), signature: parts[2] }

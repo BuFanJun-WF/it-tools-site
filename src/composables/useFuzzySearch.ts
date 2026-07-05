@@ -1,36 +1,42 @@
 import { computed, type Ref } from 'vue'
 import { catalog } from '@/data/catalog'
-import { useI18n } from 'vue-i18n'
+import en from '@/i18n/locales/en'
+import zhCN from '@/i18n/locales/zh-CN'
 import type { Tool } from '@/types/tool'
 
+// 按 dotted key 从 messages 树取字符串。
+function pick(messages: unknown, key: string): string {
+  const val = key.split('.').reduce<unknown>((acc, k) => {
+    return acc && typeof acc === 'object' ? (acc as Record<string, unknown>)[k] : undefined
+  }, messages)
+  return typeof val === 'string' ? val : ''
+}
+
+// 预构建每个工具的双语 haystack（英 + 中的 name/desc + keywords）。
+// 不依赖 query 或 locale，模块加载时构建一次，搜索时只做 token 匹配。
+const haystacks = new Map<Tool, string>()
+for (const tool of catalog) {
+  const parts = [
+    pick(en, tool.nameKey), pick(en, tool.descKey),
+    pick(zhCN, tool.nameKey), pick(zhCN, tool.descKey),
+    ...tool.keywords,
+  ].map(s => s.toLowerCase())
+  haystacks.set(tool, parts.join(''))
+}
+
 /**
- * Filter the catalog by free-text query and (optionally) active category.
- * Search matches the localized name/description for the current locale plus
- * the bilingual keywords array. Case-insensitive, token-AND.
+ * 按自由文本和（可选）分类筛选 catalog。命中英/中两种语言的 name/description
+ * 以及双语 keywords 数组。大小写不敏感，token 之间为 AND。
  */
 export function useFuzzySearch(query: Ref<string>, category: Ref<string>) {
-  const { t, tm } = useI18n()
-
   return computed<Tool[]>(() => {
     const q = query.value.trim().toLowerCase()
     const tokens = q ? q.split(/\s+/).filter(Boolean) : []
-
     let pool = catalog
-    if (category.value !== 'All') {
-      pool = pool.filter(tool => tool.category === category.value)
-    }
-
+    if (category.value !== 'All') pool = pool.filter(t => t.category === category.value)
     if (tokens.length === 0) return pool
-
     return pool.filter(tool => {
-      // Build a haystack from localized name/description + keyword list.
-      const name = String(t(tool.nameKey)).toLowerCase()
-      const desc = String(t(tool.descKey)).toLowerCase()
-      const kws = tool.keywords.map(k => k.toLowerCase())
-      // Also pull the other locale's name/desc so EN↔ZH search works both ways.
-      const altName = String((tm(tool.nameKey) as Record<string, string> | string | undefined) ?? '').toLowerCase()
-      const altDesc = String((tm(tool.descKey) as Record<string, string> | string | undefined) ?? '').toLowerCase()
-      const haystack = [name, desc, altName, altDesc, ...kws].join(' \u0001 ')
+      const haystack = haystacks.get(tool) ?? ''
       return tokens.every(tok => haystack.includes(tok))
     })
   })

@@ -6,7 +6,8 @@ const FAV_KEY = 'it-tools:favorites'
 function load(): string[] {
   try {
     const raw = localStorage.getItem(FAV_KEY)
-    return raw ? (JSON.parse(raw) as string[]) : []
+    const parsed = raw ? JSON.parse(raw) : []
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === 'string') : []
   } catch {
     return []
   }
@@ -16,7 +17,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
   const ids = ref<string[]>(load())
 
   function persist() {
-    localStorage.setItem(FAV_KEY, JSON.stringify(ids.value))
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(ids.value)) } catch { /* 隐私模式/配额超限，静默 */ }
   }
 
   const count = computed(() => ids.value.length)

@@ -31,14 +31,19 @@ function render() {
     dataUrl.value = ''
     return
   }
-  const qr = new QRious({
-    value: value.value,
-    size: size.value,
-    level: level.value,
-    foreground: fg.value,
-    background: bg.value,
-  })
-  dataUrl.value = qr.toDataURL()
+  try {
+    const qr = new QRious({
+      value: value.value,
+      size: size.value,
+      level: level.value,
+      foreground: fg.value,
+      background: bg.value,
+    })
+    dataUrl.value = qr.toDataURL()
+  } catch {
+    // 输入超出所选纠错级容量时 QRious 会抛错，清空预览避免无提示崩溃。
+    dataUrl.value = ''
+  }
 }
 
 watch([value, size, level, fg, bg], render, { immediate: true })

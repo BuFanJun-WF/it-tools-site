@@ -222,6 +222,7 @@ export const catalog: Tool[] = [
     nameKey: 'tools.date-time-converter.name',
     descKey: 'tools.date-time-converter.description',
     implemented: true,
+    hot: true,
   },
   {
     id: 'roman-numeral-converter',
@@ -648,13 +649,14 @@ export function findTool(idOrPath: string): Tool | undefined {
   return toolById.get(key) ?? toolByPath.get(idOrPath)
 }
 
-export function toolsByCategory(cat: string): Tool[] {
-  return catalog.filter(t => t.category === cat)
-}
-
 /** Resolve an ordered list of tool ids to their Tool metadata, dropping unknowns. */
 export function toolsFromIds(ids: string[]): Tool[] {
   return ids
     .map(id => toolById.get(id))
     .filter((t): t is Tool => Boolean(t))
 }
+
+/** 每个分类的工具数量，模块加载时预计算一次，避免各页面重复 filter。 */
+export const countByCategory: Record<string, number> = Object.fromEntries(
+  CATEGORIES.map(c => [c, catalog.filter(t => t.category === c).length]),
+)

@@ -57,12 +57,12 @@ const description = computed(() => {
 
   const minuteEvery = minute === '*'
   const hourEvery = hour === '*'
+  const minuteStep = minute.match(/^\*\/(\d+)/)
 
   let time: string
   if (/^\*\/1$/.test(minute) || minuteEvery) {
-    if (/^\*\/(\d+)/.test(minute)) {
-      const step = RegExp.$1
-      time = `every ${step} minutes`
+    if (minuteStep) {
+      time = `every ${minuteStep[1]} minutes`
     } else if (hourEvery) {
       time = 'every minute'
     } else if (h.length === 1) {
@@ -70,8 +70,8 @@ const description = computed(() => {
     } else {
       time = `every minute during hour${h.length > 1 ? 's' : ''} ${fmtList(h)}`
     }
-  } else if (/^\*\/(\d+)/.test(minute)) {
-    time = `every ${RegExp.$1} minutes`
+  } else if (minuteStep) {
+    time = `every ${minuteStep[1]} minutes`
   } else {
     const mFmt = m.map(n => String(n).padStart(2, '0')).join(',')
     if (hourEvery) time = `at minute ${mFmt} of every hour`

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FieldLabel from '@/components/ui/FieldLabel.vue'
 import OutputBox from '@/components/ui/OutputBox.vue'
@@ -28,6 +28,11 @@ function digit(who: Who): number {
 }
 
 const octal = computed(() => `${digit('owner')}${digit('group')}${digit('others')}`)
+
+// 输入框持有独立的 octalInput，避免受控/非受控混合导致输入中途被吞；
+// state 变化（点 checkbox）时同步回输入框。
+const octalInput = ref(octal.value)
+watch(octal, v => { octalInput.value = v })
 
 function symbolic(who: Who, letter: string): string {
   let s = ''
@@ -62,10 +67,11 @@ function reverseFromOctal(o: string) {
   })
 }
 
-let manualOctal = ''
 function onOctalInput(e: Event) {
-  manualOctal = (e.target as HTMLInputElement).value.replace(/\D/g, '').slice(0, 3)
-  if (manualOctal.length === 3) reverseFromOctal(manualOctal)
+  // 只接受 0-7（八进制合法位），过滤掉 8/9 等非法字符。
+  const clean = (e.target as HTMLInputElement).value.replace(/[^0-7]/g, '').slice(0, 3)
+  octalInput.value = clean
+  if (clean.length === 3) reverseFromOctal(clean)
 }
 </script>
 
@@ -89,7 +95,7 @@ function onOctalInput(e: Event) {
       <div>
         <FieldLabel>{{ t('impl.chmod-calculator.octal') }}</FieldLabel>
         <div class="result-row">
-          <input class="octal-input" :value="octal" @input="onOctalInput" maxlength="3" />
+          <input class="octal-input" :value="octalInput" @input="onOctalInput" maxlength="3" />
           <CopyButton :text="() => octal" />
         </div>
       </div>

@@ -124,6 +124,13 @@ mark {
   background: var(--surface);
 }
 
+/* Responsive grid of tool cards — shared by home & hall. */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-4);
+}
+
 @media (max-width: 920px) {
   .grid-2,
   .grid-2.uneven {

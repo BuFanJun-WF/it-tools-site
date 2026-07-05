@@ -15,17 +15,17 @@ const META: Record<string, { icon: string; titleKey: string; bodyKey: string }> 
   about: {
     icon: 'sparkles',
     titleKey: 'home.about.title',
-    bodyKey: 'home.about.subtitle',
+    bodyKey: 'pages.about.body',
   },
   blog: {
     icon: 'fileText',
     titleKey: 'footer.links.changelog',
-    bodyKey: 'home.about.subtitle',
+    bodyKey: 'pages.blog.body',
   },
   feedback: {
     icon: 'heart',
     titleKey: 'app.nav.items.feedback',
-    bodyKey: 'home.hero.cta.feedback',
+    bodyKey: 'pages.feedback.body',
   },
 }
 

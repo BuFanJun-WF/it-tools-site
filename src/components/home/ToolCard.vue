@@ -3,10 +3,11 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import AppIcon from '@/components/ui/AppIcon.vue'
+import { highlight } from '@/utils/html'
 import { useFavoritesStore } from '@/stores/favorites'
 import type { Tool } from '@/types/tool'
 
-const props = defineProps<{ tool: Tool; query?: string; featured?: boolean }>()
+const props = defineProps<{ tool: Tool; query?: string }>()
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -19,35 +20,34 @@ const enterLabel = computed(() => (locale.value.startsWith('zh') ? '进入' : 'E
 
 const cardRef = ref<HTMLElement | null>(null)
 
+let rafId: number | null = null
+let lastMove: MouseEvent | null = null
 function onMouseMove(e: MouseEvent) {
-  const el = cardRef.value
-  if (!el) return
-  const r = el.getBoundingClientRect()
-  el.style.setProperty('--mx', `${e.clientX - r.left}px`)
-  el.style.setProperty('--my', `${e.clientY - r.top}px`)
+  // 用 rAF 合并，避免鼠标高频移动时每帧多次强制布局。
+  lastMove = e
+  if (rafId !== null) return
+  rafId = requestAnimationFrame(() => {
+    rafId = null
+    const el = cardRef.value
+    const ev = lastMove
+    if (!el || !ev) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty('--mx', `${ev.clientX - r.left}px`)
+    el.style.setProperty('--my', `${ev.clientY - r.top}px`)
+  })
 }
 
 function onClick(e: MouseEvent) {
-  // Star click toggles favorite instead of navigating
+  // 星标点击切换收藏，不再导航
   if ((e.target as HTMLElement).closest('[data-fav]')) return
   router.push(props.tool.path)
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] ?? c)
-}
-function highlight(text: string, q?: string) {
-  if (!q) return escapeHtml(text)
-  const safe = escapeHtml(text)
-  const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig')
-  return safe.replace(re, '<mark>$1</mark>')
 }
 </script>
 
 <template>
   <article
     ref="cardRef"
-    :class="['mkt-card', featured && 'featured', !tool.implemented && 'dim']"
+    :class="['mkt-card', !tool.implemented && 'dim']"
     @mousemove="onMouseMove"
     @click="onClick"
   >

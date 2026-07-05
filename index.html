@@ -7,6 +7,18 @@
   <meta name="theme-color" content="#100f0d" />
   <title>it·tools — Handy tools for developers</title>
   <link rel="icon" href="./favicon.svg" />
+  <script>
+    // 在应用挂载前同步设置主题，避免首屏深色闪烁（FOUC）。
+    (function () {
+      try {
+        var t = localStorage.getItem('it-tools:theme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>

@@ -15,8 +15,9 @@ const { t } = useI18n()
 const FUNCS = ['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sqrt', 'log', 'log2', 'log10', 'abs', 'ceil', 'floor', 'round', 'exp', 'sign', 'min', 'max', 'pow']
 const CONSTS = ['PI', 'E']
 const ALLOWED = [...FUNCS, ...CONSTS]
-const FN_RE = new RegExp(`\\b(${FUNCS.join('|')})\\b`, 'g')
-const CONST_RE = new RegExp(`\\b(${CONSTS.join('|')})\\b`, 'g')
+// `(?<!\.)` 避免把用户已写出的 `Math.sin` / `Math.PI` 二次前缀为 `Math.Math.xxx`。
+const FN_RE = new RegExp(`(?<!\\.)\\b(${FUNCS.join('|')})\\b`, 'g')
+const CONST_RE = new RegExp(`(?<!\\.)\\b(${CONSTS.join('|')})\\b`, 'g')
 
 const input = ref('2 + 3 * (4 - 1)')
 
@@ -36,7 +37,7 @@ const result = computed(() => {
       .replace(/\^/g, '**')
       .replace(FN_RE, 'Math.$1')
       .replace(CONST_RE, 'Math.$&')
-    // eslint-disable-next-line no-new-Func
+    // eslint-disable-next-line no-new-func
     const fn = new Function(`"use strict"; return (${safe});`)
     const val = fn()
     if (typeof val !== 'number' || !isFinite(val)) return { ok: false, value: '', error: t('impl.math-evaluator.invalid') }

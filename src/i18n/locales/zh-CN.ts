@@ -4,7 +4,7 @@
 
 export default {
   app: {
-    name: 'it·tools',
+    name: '效率工具箱',
     tagline: '在线开发与效率工具',
     search: {
       placeholder: '搜索工具…',
@@ -36,7 +36,7 @@ export default {
     hero: {
       eyebrow: '全程浏览器本地运行 · 不上传任何数据',
       title: '一盒精选的{accent}开发者工具{accentEnd}，触手可及。',
-      lead: '深受喜爱的 it-tools 的重构版 —— {count} 个亲手打造的实用工具，覆盖加密、转换、Web、网络与日常文本处理。快速、可离线，界面刻意隐去，让真正的工作成为主角。',
+      lead: '精选 {count} 个亲手打造的实用工具，覆盖加密、转换、Web、网络与日常文本处理。快速、可离线，界面刻意隐去，让真正的工作成为主角。',
       stats: {
         tools: '可用工具',
         categories: '工具分类',
@@ -68,7 +68,7 @@ export default {
       browse: '浏览',
     },
     about: {
-      title: '为什么选择 it·tools',
+      title: '为什么选择 效率工具箱',
       subtitle: '纯前端、零上传、即开即用。',
       points: {
         local: { title: '全程本地处理', body: '所有计算在浏览器内完成，数据不出本机，安全可靠。' },
@@ -118,7 +118,7 @@ export default {
       weibo: 'Weibo',
       x: 'X',
     },
-    rights: '© {year} it·tools. 保留所有权利。',
+    rights: '© {year} 效率工具箱. 保留所有权利。',
     madeWith: '用心打造，为开发者服务',
   },
 
@@ -137,6 +137,12 @@ export default {
     title: '404 — 页面未找到',
     body: '你要找的工具不在这里。',
     back: '返回首页',
+  },
+
+  pages: {
+    about: { body: '纯前端、零上传、即开即用。' },
+    blog: { body: '持续迭代，发布说明将在此更新。' },
+    feedback: { body: '发现问题或有想法？通过下方链接告诉我们。' },
   },
 
   common: {
@@ -310,6 +316,7 @@ export default {
       code: '状态码',
       name: '名称',
       desc: '说明',
+      noMatch: '没有匹配该筛选的状态码。',
     },
     'json-diff': {
       leftLabel: '左侧 JSON',
@@ -332,6 +339,7 @@ export default {
       flags: '标志',
       textLabel: '测试文本',
       textPlaceholder: '要匹配的文本…',
+      outputLabel: '匹配高亮',
       matches: '{n} 处匹配',
       noMatch: '无匹配。',
       invalidRegex: '无效的正则表达式。',

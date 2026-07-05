@@ -8,6 +8,7 @@ import OutputBox from '@/components/ui/OutputBox.vue'
 import Stack from '@/components/ui/Stack.vue'
 import Row from '@/components/ui/Row.vue'
 import TagBadge from '@/components/ui/TagBadge.vue'
+import { escapeHtml } from '@/utils/html'
 
 const { t } = useI18n()
 
@@ -39,10 +40,6 @@ const result = computed<{ matches: Match[]; highlighted: string; error: string }
   html += escapeHtml(text.value.slice(lastIdx))
   return { matches, highlighted: html, error: '' }
 })
-
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] ?? c)
-}
 </script>
 
 <template>
@@ -65,7 +62,7 @@ function escapeHtml(s: string) {
 
     <div>
       <Row justify="space-between" style="margin-bottom: var(--sp-2);">
-        <FieldLabel style="margin-bottom: 0;">{{ t('impl.regex-tester.textLabel') }}</FieldLabel>
+        <FieldLabel style="margin-bottom: 0;">{{ t('impl.regex-tester.outputLabel') }}</FieldLabel>
         <TagBadge v-if="result.error" variant="del">{{ t('impl.regex-tester.invalidRegex') }}</TagBadge>
         <TagBadge v-else-if="result.matches.length" variant="add">{{ t('impl.regex-tester.matches', { n: result.matches.length }) }}</TagBadge>
         <TagBadge v-else>{{ t('impl.regex-tester.noMatch') }}</TagBadge>

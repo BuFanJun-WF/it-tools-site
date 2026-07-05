@@ -10,7 +10,9 @@ import AppIcon from '@/components/ui/AppIcon.vue'
 
 const { t } = useI18n()
 
-const uuids = ref<string[]>([])
+// 保留原始 UUID（标准小写带连字符），显示格式由 raw 派生；
+// 切换大小写/连字符只改格式，不再重新随机，避免丢弃已生成列表。
+const rawUuids = ref<string[]>([])
 const uppercase = ref(false)
 const hyphens = ref(true)
 
@@ -21,12 +23,10 @@ function fmt(u: string): string {
   return s
 }
 
-function generate(n: number) {
-  uuids.value = Array.from({ length: n }, () => fmt(crypto.randomUUID()))
-}
+const uuids = computed(() => rawUuids.value.map(fmt))
 
-function applyFmt() {
-  uuids.value = uuids.value.map(() => fmt(crypto.randomUUID()))
+function generate(n: number) {
+  rawUuids.value = Array.from({ length: n }, () => crypto.randomUUID())
 }
 
 const hint = computed(() => t('impl.uuid-generator.hint'))
@@ -42,11 +42,11 @@ generate(5)
       </BaseButton>
       <BaseButton @click="generate(5)">{{ t('impl.uuid-generator.generate5') }}</BaseButton>
       <label class="check">
-        <input v-model="uppercase" type="checkbox" @change="applyFmt" />
+        <input v-model="uppercase" type="checkbox" />
         {{ t('impl.uuid-generator.uppercase') }}
       </label>
       <label class="check">
-        <input v-model="hyphens" type="checkbox" @change="applyFmt" />
+        <input v-model="hyphens" type="checkbox" />
         {{ t('impl.uuid-generator.hyphens') }}
       </label>
       <span class="hint">{{ hint }}</span>

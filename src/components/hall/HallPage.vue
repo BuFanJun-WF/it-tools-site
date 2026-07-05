@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { catalog, CATEGORIES, toolsByCategory } from '@/data/catalog'
+import { catalog, CATEGORIES, countByCategory } from '@/data/catalog'
 import { categoryMeta } from '@/data/icons'
 import { useUiStore } from '@/stores/ui'
 import { useFuzzySearch } from '@/composables/useFuzzySearch'
@@ -17,10 +17,10 @@ const results = useFuzzySearch(query, activeCat)
 
 const ALL_LABELS = { en: 'All', 'zh-CN': '全部' } as const
 
-const chips = computed(() => [
+const chips = [
   { key: 'All', icon: 'grid', count: catalog.length },
-  ...CATEGORIES.map(c => ({ key: c, icon: categoryMeta[c]?.icon ?? 'grid', count: toolsByCategory(c).length })),
-])
+  ...CATEGORIES.map(c => ({ key: c, icon: categoryMeta[c]?.icon ?? 'grid', count: countByCategory[c] ?? 0 })),
+]
 
 function chipLabel(key: string) {
   if (key === 'All') return ALL_LABELS[locale.value as 'en' | 'zh-CN']
@@ -99,7 +99,7 @@ const noResultTitle = computed(() => {
     <!-- Empty -->
     <div v-else class="empty-state">
       <AppIcon name="search" :size="48" />
-      <h3 v-html="noResultTitle" />
+      <h3>{{ noResultTitle }}</h3>
       <p>{{ t('home.noResults.body') }}</p>
     </div>
   </div>
@@ -238,13 +238,6 @@ const noResultTitle = computed(() => {
   color: var(--muted-2);
   margin-left: var(--sp-2);
   font-weight: 500;
-}
-
-/* Grid */
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--sp-4);
 }
 
 /* Empty */

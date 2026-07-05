@@ -4,7 +4,7 @@
 
 export default {
   app: {
-    name: 'it·tools',
+    name: 'Efficiency Toolbox',
     tagline: 'Developer & productivity tools',
     search: {
       placeholder: 'Search tools…',
@@ -36,7 +36,7 @@ export default {
     hero: {
       eyebrow: 'All client-side · No data leaves your browser',
       title: 'A curated box of {accent}developer tools{accentEnd}, one click away.',
-      lead: 'A re-imagined take on the beloved it-tools — {count} hand-built utilities for crypto, conversion, web, network and everyday text work. Fast, offline-capable, with an interface designed to disappear so the work can take stage.',
+      lead: 'A curated set of {count} hand-built utilities for crypto, conversion, web, network and everyday text work. Fast, offline-capable, with an interface designed to disappear so the work can take stage.',
       stats: {
         tools: 'Working tools',
         categories: 'Categories',
@@ -68,7 +68,7 @@ export default {
       browse: 'Browse',
     },
     about: {
-      title: 'Why it·tools',
+      title: 'Why Efficiency Toolbox',
       subtitle: 'Client-side, zero uploads, instant.',
       points: {
         local: { title: 'Fully local', body: 'Every calculation runs in your browser. Your data never leaves the device.' },
@@ -118,7 +118,7 @@ export default {
       weibo: 'Weibo',
       x: 'X',
     },
-    rights: '© {year} it·tools. All rights reserved.',
+    rights: '© {year} Efficiency Toolbox. All rights reserved.',
     madeWith: 'Crafted with care, for developers',
   },
 
@@ -137,6 +137,12 @@ export default {
     title: '404 — page not found',
     body: "The tool you're looking for doesn't exist here.",
     back: 'Back home',
+  },
+
+  pages: {
+    about: { body: 'Client-side, zero uploads, instant.' },
+    blog: { body: 'We ship continuously — watch this space for release notes.' },
+    feedback: { body: 'Found a bug or have an idea? Reach out via the links below.' },
   },
 
   common: {
@@ -313,6 +319,7 @@ export default {
       code: 'Code',
       name: 'Name',
       desc: 'Description',
+      noMatch: 'No status codes match your filter.',
     },
     'json-diff': {
       leftLabel: 'Left JSON',
@@ -335,6 +342,7 @@ export default {
       flags: 'Flags',
       textLabel: 'Test string',
       textPlaceholder: 'Text to match against…',
+      outputLabel: 'Highlighted matches',
       matches: '{n} match | {n} matches',
       noMatch: 'No matches.',
       invalidRegex: 'Invalid regular expression.',

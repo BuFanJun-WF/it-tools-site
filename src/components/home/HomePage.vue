@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
-import { catalog, CATEGORIES, toolsByCategory, toolsFromIds } from '@/data/catalog'
+import { catalog, CATEGORIES, countByCategory, toolsFromIds } from '@/data/catalog'
 import { categoryMeta } from '@/data/icons'
 import { useUiStore } from '@/stores/ui'
 import { useFavoriteTools } from '@/composables/useFavoriteTools'
@@ -64,9 +64,7 @@ const quickTools = computed(() => catalog.filter(t => t.hot && t.implemented))
 const BRAND_KEYWORDS = ['json', 'base64', 'regex', 'hash', 'uuid', 'jwt', 'cron', 'qr', 'ipv4', 'emoji']
 
 // Category showcase cards
-const categoryCards = computed(() =>
-  CATEGORIES.map(c => ({ cat: c, count: toolsByCategory(c).length })),
-)
+const categoryCards = CATEGORIES.map(c => ({ cat: c, count: countByCategory[c] ?? 0 }))
 
 // Submitting the hero search routes to the hall with the query applied. The
 // input itself binds `ui.search` directly, so submitting only navigates.
@@ -157,7 +155,7 @@ function goFeedback() {
 
     <!-- ============== BRAND STRIP ============== -->
     <div class="brand-strip" aria-hidden="true">
-      <span class="bs-name">it.tools</span>
+      <span class="bs-name">toolbox</span>
       <span class="bs-sep">//</span>
       <template v-for="(kw, i) in BRAND_KEYWORDS" :key="kw">
         <span v-if="i > 0" class="bs-dot">·</span>
@@ -194,7 +192,6 @@ function goFeedback() {
           v-for="tool in featured"
           :key="tool.id"
           :tool="tool"
-          featured
         />
       </div>
     </section>
@@ -538,12 +535,6 @@ h1 {
   background: var(--surface-2);
   padding: 3px 10px;
   border-radius: var(--r-pill);
-}
-
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--sp-4);
 }
 
 /* ============== CATEGORY CARDS ============== */

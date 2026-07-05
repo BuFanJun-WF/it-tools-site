@@ -24,15 +24,20 @@ function apply(theme: Theme | null) {
   else el.removeAttribute('data-theme')
 }
 
+let mediaMql: MediaQueryList | null = null
+
 export const useThemeStore = defineStore('theme', () => {
   const stored = ref<Theme | null>(loadStored())
   const resolved = computed<Theme>(() => resolvedTheme(stored.value))
   const isDark = computed(() => resolved.value === 'dark')
 
   function init() {
-    // Always apply the resolved theme so system-preference users get the
-    // correct mode on first visit (no null data-theme attribute).
     apply(resolved.value)
+    // 未显式选择主题时，跟随系统的深浅色变化。
+    mediaMql = window.matchMedia('(prefers-color-scheme: dark)')
+    mediaMql.addEventListener('change', () => {
+      if (!stored.value) apply(resolvedTheme(null))
+    })
   }
 
   function toggle() {
