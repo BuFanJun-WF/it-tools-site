@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { catalog, CATEGORIES, toolsByCategory } from '@/data/catalog'
 import { categoryMeta } from '@/data/icons'
 import { useUiStore } from '@/stores/ui'
-import { useFavoritesStore } from '@/stores/favorites'
+import { useFavoriteTools } from '@/composables/useFavoriteTools'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import ToolCard from './ToolCard.vue'
@@ -13,7 +13,7 @@ import ToolCard from './ToolCard.vue'
 const { t, locale } = useI18n()
 const router = useRouter()
 const ui = useUiStore()
-const favs = useFavoritesStore()
+const { favTools } = useFavoriteTools()
 
 const localeToolWord = computed(() => (locale.value.startsWith('zh') ? '个工具' : 'tools'))
 
@@ -53,13 +53,6 @@ const featured = computed(() =>
   FEATURED_IDS
     .map(id => catalog.find(t => t.id === id))
     .filter((t): t is NonNullable<typeof t> => Boolean(t) && Boolean(t!.implemented)),
-)
-
-// Favorites row
-const favTools = computed(() =>
-  favs.ids
-    .map(id => catalog.find(tool => tool.id === id))
-    .filter((x): x is NonNullable<typeof x> => Boolean(x)),
 )
 
 // Category showcase cards

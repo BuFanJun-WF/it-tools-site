@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { sha3_256 } from 'js-sha3'
 import FieldLabel from '@/components/ui/FieldLabel.vue'
@@ -40,11 +40,8 @@ async function compute() {
   }
 }
 
-watchEffect(() => {
-  // re-run when any dep changes
-  void input.value; void algo.value; void uppercase.value
-  compute()
-})
+// Recompute whenever input, algorithm, or casing changes (incl. first run).
+watch([input, algo, uppercase], compute, { immediate: true })
 </script>
 
 <template>

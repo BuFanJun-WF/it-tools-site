@@ -17,7 +17,7 @@ export function useFuzzySearch(query: Ref<string>, category: Ref<string>) {
 
     let pool = catalog
     if (category.value !== 'All') {
-      pool = pool.filter(t => t.category === category.value)
+      pool = pool.filter(tool => tool.category === category.value)
     }
 
     if (tokens.length === 0) return pool
