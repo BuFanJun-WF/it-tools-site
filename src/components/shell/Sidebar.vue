@@ -1,22 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { catalog, CATEGORIES, toolsByCategory } from '@/data/catalog'
+import { CATEGORIES, toolsByCategory } from '@/data/catalog'
 import { categoryMeta } from '@/data/icons'
-import { useFavoritesStore } from '@/stores/favorites'
+import { useFavoriteTools } from '@/composables/useFavoriteTools'
 import { useUiStore } from '@/stores/ui'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import NavItem from './NavItem.vue'
 
 const { t } = useI18n()
-const favs = useFavoritesStore()
+const { favTools } = useFavoriteTools()
 const ui = useUiStore()
-
-const favTools = computed(() =>
-  favs.ids
-    .map(id => catalog.find(tool => tool.id === id))
-    .filter((x): x is NonNullable<typeof x> => Boolean(x)),
-)
 
 function catLabel(cat: string) {
   return t(`categories.${cat}`)

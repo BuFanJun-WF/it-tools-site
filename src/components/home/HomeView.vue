@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { catalog } from '@/data/catalog'
 import { useUiStore } from '@/stores/ui'
-import { useFavoritesStore } from '@/stores/favorites'
 import { useFuzzySearch } from '@/composables/useFuzzySearch'
+import { useFavoriteTools } from '@/composables/useFavoriteTools'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import HeroSection from './HeroSection.vue'
 import CategoryBar from './CategoryBar.vue'
@@ -12,7 +11,7 @@ import ToolCard from './ToolCard.vue'
 
 const { t } = useI18n()
 const ui = useUiStore()
-const favs = useFavoritesStore()
+const { favTools } = useFavoriteTools()
 
 const query = computed(() => ui.search)
 const activeCat = computed(() => ui.activeCategory)
@@ -20,11 +19,6 @@ const results = useFuzzySearch(query, activeCat)
 
 const showHero = computed(() => activeCat.value === 'All' && !query.value.trim())
 
-const favTools = computed(() =>
-  favs.ids
-    .map(id => catalog.find(tool => tool.id === id))
-    .filter((x): x is NonNullable<typeof x> => Boolean(x)),
-)
 const showFavRow = computed(() => activeCat.value === 'All' && !query.value.trim() && favTools.value.length > 0)
 
 const noResultTitle = computed(() => {

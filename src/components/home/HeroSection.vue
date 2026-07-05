@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
-import { catalog } from '@/data/catalog'
-import { CATEGORIES } from '@/data/catalog'
+import { catalog, CATEGORIES } from '@/data/catalog'
 
 const { t } = useI18n()
 
