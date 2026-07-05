@@ -19,7 +19,7 @@ const AsyncTool = computed(() => {
 </script>
 
 <template>
-  <div v-if="tool">
+  <div v-if="tool" class="page page-enter">
     <ToolHeader :tool="tool" />
 
     <component :is="AsyncTool" v-if="AsyncTool" :tool="tool" />

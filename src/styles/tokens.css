@@ -47,8 +47,22 @@
 
   /* ---- Layout metrics ---- */
   --sidebar-w: 268px;
-  --topbar-h: 64px;
+  --topbar-h: 68px;
   --content-max: 1180px;
+  /* Marketplace-specific */
+  --header-h: 68px;
+  --page-max: 1200px;
+  --nav-max: 1280px;
+}
+
+/* ---------------- Badge / status colors (shared light+dark) ---------------- */
+:root {
+  --badge-hot-fg: #ef4444;
+  --badge-hot-bg: rgba(239, 68, 68, 0.10);
+  --badge-new-fg: #10b981;
+  --badge-new-bg: rgba(16, 185, 129, 0.10);
+  --badge-soon-fg: var(--amber);
+  --badge-soon-bg: var(--amber-soft);
 }
 
 /* ---------------- Dark theme (default) ---------------- */
@@ -97,6 +111,11 @@
   --diff-add-fg: #bef264;
   --diff-del-bg: rgba(251, 113, 133, 0.10);
   --diff-del-fg: #fda4af;
+
+  /* Marketplace surfaces */
+  --footer-bg: #14120f;
+  --footer-border: #2c2823;
+  --hero-glow: radial-gradient(700px 320px at 50% -10%, rgba(255, 107, 53, 0.18), transparent 60%);
 }
 
 /* ---------------- Light theme ---------------- */
@@ -144,9 +163,12 @@
   --diff-add-fg: #4d7c0f;
   --diff-del-bg: rgba(225, 29, 72, 0.10);
   --diff-del-fg: #be123c;
-}
 
-@media (prefers-color-scheme: light) {
+  /* Marketplace surfaces */
+  --footer-bg: #f3eee5;
+  --footer-border: #e6e0d6;
+  --hero-glow: radial-gradient(700px 320px at 50% -10%, rgba(255, 107, 53, 0.16), transparent 60%);
+}
   :root:not([data-theme]) {
     color-scheme: light;
     --bg: #faf8f4;
@@ -184,5 +206,8 @@
     --diff-add-fg: #4d7c0f;
     --diff-del-bg: rgba(225, 29, 72, 0.10);
     --diff-del-fg: #be123c;
+    --footer-bg: #f3eee5;
+    --footer-border: #e6e0d6;
+    --hero-glow: radial-gradient(700px 320px at 50% -10%, rgba(255, 107, 53, 0.16), transparent 60%);
   }
 }

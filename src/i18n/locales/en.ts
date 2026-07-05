@@ -5,6 +5,7 @@
 export default {
   app: {
     name: 'it·tools',
+    tagline: 'Developer & productivity tools',
     search: {
       placeholder: 'Search tools…',
       shortcut: '⌘K',
@@ -17,9 +18,17 @@ export default {
       language: 'Language',
       github: 'View on GitHub',
       inspiredBy: 'Source on GitHub',
+      menu: 'Menu',
     },
     nav: {
       favorites: 'Favorites',
+      items: {
+        home: 'Home',
+        hall: 'Tool Hall',
+        about: 'About',
+        blog: 'Blog',
+        feedback: 'Feedback',
+      },
     },
   },
 
@@ -34,6 +43,29 @@ export default {
         zeroKb: 'Server calls',
         inBrowser: 'Runs in-browser',
       },
+      cta: {
+        hall: 'Browse tool hall',
+        feedback: 'Send feedback',
+      },
+    },
+    featured: {
+      title: 'Popular tools',
+      subtitle: 'The most-used utilities developers reach for',
+      more: 'View all',
+    },
+    categories: {
+      title: 'Browse by category',
+      subtitle: 'Find what you need across {n} categories',
+      browse: 'Browse',
+    },
+    about: {
+      title: 'Why it·tools',
+      subtitle: 'Client-side, zero uploads, instant.',
+      points: {
+        local: { title: 'Fully local', body: 'Every calculation runs in your browser. Your data never leaves the device.' },
+        fast: { title: 'Blazing fast', body: 'Statically hosted with lazy loading — usable on first paint, even offline.' },
+        open: { title: 'Open source', body: 'Hosted on GitHub. Issues and pull requests welcome.' },
+      },
     },
     yourFavorites: 'Your favorites',
     resultsFor: 'Results for "{q}"',
@@ -44,6 +76,41 @@ export default {
     toolCount: '{n} tool | {n} tools',
     favCount: '{n}',
     count: '{n}',
+  },
+
+  hall: {
+    title: 'Tool Hall',
+    subtitle: 'Browse all {n}+ online tools — find what you need by category.',
+    countSuffix: '{n} tools in total',
+    all: 'All tools',
+    searchPlaceholder: 'Search tools…',
+  },
+
+  footer: {
+    tagline: '100+ online tools for development, design, study and daily work. All data is processed locally — safe and reliable.',
+    columns: {
+      product: 'Product',
+      support: 'Support',
+      about: 'About',
+    },
+    links: {
+      hall: 'Tool Hall',
+      changelog: 'Changelog',
+      popular: 'Popular tools',
+      docs: 'Help docs',
+      feedback: 'Feedback',
+      about: 'About us',
+      privacy: 'Privacy',
+      terms: 'Terms',
+    },
+    social: {
+      github: 'GitHub',
+      wechat: 'WeChat',
+      weibo: 'Weibo',
+      x: 'X',
+    },
+    rights: '© {year} it·tools. All rights reserved.',
+    madeWith: 'Crafted with care, for developers',
   },
 
   tool: {

@@ -5,6 +5,7 @@
 export default {
   app: {
     name: 'it·tools',
+    tagline: '在线开发与效率工具',
     search: {
       placeholder: '搜索工具…',
       shortcut: '⌘K',
@@ -17,9 +18,17 @@ export default {
       language: '语言',
       github: '在 GitHub 查看',
       inspiredBy: '在 GitHub 查看源码',
+      menu: '菜单',
     },
     nav: {
       favorites: '收藏',
+      items: {
+        home: '首页',
+        hall: '工具大厅',
+        about: '关于我们',
+        blog: '博客',
+        feedback: '留言反馈',
+      },
     },
   },
 
@@ -34,6 +43,29 @@ export default {
         zeroKb: '服务端请求',
         inBrowser: '浏览器内运行',
       },
+      cta: {
+        hall: '进入工具大厅',
+        feedback: '留言反馈',
+      },
+    },
+    featured: {
+      title: '热门工具',
+      subtitle: '开发者最常用的效率利器',
+      more: '查看全部',
+    },
+    categories: {
+      title: '按分类浏览',
+      subtitle: '从 {n} 个分类中快速找到所需工具',
+      browse: '浏览',
+    },
+    about: {
+      title: '为什么选择 it·tools',
+      subtitle: '纯前端、零上传、即开即用。',
+      points: {
+        local: { title: '全程本地处理', body: '所有计算在浏览器内完成，数据不出本机，安全可靠。' },
+        fast: { title: '极速响应', body: '静态托管 + 懒加载，首屏即可使用，离线也能跑。' },
+        open: { title: '开源透明', body: '代码托管在 GitHub，欢迎提交 Issue 与 PR。' },
+      },
     },
     yourFavorites: '你的收藏',
     resultsFor: '“{q}” 的搜索结果',
@@ -44,6 +76,41 @@ export default {
     toolCount: '{n} 个工具',
     favCount: '{n}',
     count: '{n}',
+  },
+
+  hall: {
+    title: '工具大厅',
+    subtitle: '浏览全部 {n}+ 在线工具，按分类快速找到你需要的。',
+    countSuffix: '共 {n} 个工具',
+    all: '全部工具',
+    searchPlaceholder: '搜索工具…',
+  },
+
+  footer: {
+    tagline: '100+ 在线工具，满足开发、设计、学习和日常工作需求。所有数据本地处理，安全可靠。',
+    columns: {
+      product: '产品',
+      support: '支持',
+      about: '关于我们',
+    },
+    links: {
+      hall: '工具大厅',
+      changelog: '更新日志',
+      popular: '热门工具',
+      docs: '帮助文档',
+      feedback: '留言反馈',
+      about: '关于我们',
+      privacy: '隐私政策',
+      terms: '使用条款',
+    },
+    social: {
+      github: 'GitHub',
+      wechat: 'WeChat',
+      weibo: 'Weibo',
+      x: 'X',
+    },
+    rights: '© {year} it·tools. 保留所有权利。',
+    madeWith: '用心打造，为开发者服务',
   },
 
   tool: {

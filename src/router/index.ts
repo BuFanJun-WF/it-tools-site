@@ -4,7 +4,27 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@/components/home/HomeView.vue'),
+    component: () => import('@/components/home/HomePage.vue'),
+  },
+  {
+    path: '/hall',
+    name: 'hall',
+    component: () => import('@/components/hall/HallPage.vue'),
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('@/components/shell/SimplePage.vue'),
+  },
+  {
+    path: '/blog',
+    name: 'blog',
+    component: () => import('@/components/shell/SimplePage.vue'),
+  },
+  {
+    path: '/feedback',
+    name: 'feedback',
+    component: () => import('@/components/shell/SimplePage.vue'),
   },
   {
     path: '/:toolId',
