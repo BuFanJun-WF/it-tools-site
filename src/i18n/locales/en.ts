@@ -15,8 +15,8 @@ export default {
       themeDark: 'Dark theme',
       themeLight: 'Light theme',
       language: 'Language',
-      github: 'Original project',
-      inspiredBy: 'Inspired by CorentinTh/it-tools',
+      github: 'View on GitHub',
+      inspiredBy: 'Source on GitHub',
     },
     nav: {
       favorites: 'Favorites',

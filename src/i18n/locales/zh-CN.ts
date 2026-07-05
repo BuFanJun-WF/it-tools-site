@@ -15,8 +15,8 @@ export default {
       themeDark: '深色主题',
       themeLight: '浅色主题',
       language: '语言',
-      github: '原项目',
-      inspiredBy: '灵感来自 CorentinTh/it-tools',
+      github: '在 GitHub 查看',
+      inspiredBy: '在 GitHub 查看源码',
     },
     nav: {
       favorites: '收藏',

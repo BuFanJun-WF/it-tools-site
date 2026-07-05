@@ -56,7 +56,7 @@ function onSearchInput(e: Event) {
       </IconBtn>
       <IconBtn
         tag="a"
-        href="https://github.com/CorentinTh/it-tools"
+        href="https://github.com/BuFanJun-WF/it-tools-site"
         target="_blank"
         :title="t('app.actions.github')"
       >
